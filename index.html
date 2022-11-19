@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="deposit_check.js"></script>
+    <script src="name_validation.js"></script>
+
+    <style>
+        input {
+            border-style: double;
+        }
+
+        .error {
+            border-color: red;
+        }
+
+        .valid {
+            border-color: lawngreen;
+        }
+    </style>
+</head>
+<body>
+<div>First Name</div>
+<input id="first_name" class="name-input">
+<div>Sceond Name</div>
+<input id="second_name" class="name-input">
+<div>Deposit amuont</div>
+<input id="deposit_amount" class="depost-input">
+<div>
+    <button onclick="validateAll()">ACCEPT</button>
+</div>
+<div>Deposit result:</div>
+<div id="deposit_result"></div>
+
+<script>
+    function validateAll() {
+        var depositInput = document.getElementById('deposit_amount');
+        var fNameInput = document.getElementById('first_name');
+        var sNameInput = document.getElementById('second_name');
+        var dResult = document.getElementById('deposit_result');
+
+        dResult.innerText = "";
+
+        depositInput.classList.remove("error");
+        fNameInput.classList.remove("error");
+        sNameInput.classList.remove("error");
+
+        amountValid = nameValidations.validateAmount(depositInput.value);
+        nameValid = nameValidations.validateName(fNameInput.value);
+        secNameValid = nameValidations.validateSurname(sNameInput.value);
+        depoValidation = false;
+
+        if (amountValid && nameValid && secNameValid) {
+            depositValue = depositCheck.deposit_round(depositInput.value);
+            depoValidation = depositCheck.deposit_check(depositValue);
+        }
+
+        if (!amountValid || !depoValidation) {
+            depositInput.classList.add("error");
+        }
+        if (!nameValid && !secNameValid) {
+            fNameInput.classList.add("error");
+        }
+        if (!secNameValid) {
+            sNameInput.classList.add("error");
+        }
+
+        if (depoValidation) {
+            depositInput.classList.add("valid");
+            dResult.innerText = depositValue;
+        }
+    }
+</script>
+</body>
+</html>
