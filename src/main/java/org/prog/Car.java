@@ -9,8 +9,8 @@ public class Car {
 
   private int passengers;
 
-  public Car(String c) {
-    color = c;
+  public Car(String carColor) {
+    color = carColor;
     engineVolume = "2L";
   }
 
@@ -20,5 +20,13 @@ public class Car {
 
   public String getCarColor() {
     return color;
+  }
+
+  public void setPassengers(int passengers) {
+    this.passengers = passengers;
+  }
+
+  public int getPassengers() {
+    return passengers;
   }
 }
