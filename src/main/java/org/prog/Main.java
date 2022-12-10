@@ -2,77 +2,46 @@ package org.prog;
 
 public class Main {
 
-    public static void main(String... args) {
-        Car myCar = new Car("red");
-//        System.out.println(myCar.getCarColor());
-//        paintCar(myCar, "red");
-//        paintCar(myCar, "blue");
-//        System.out.println(myCar.getCarColor());
+  public static void main(String[] args) {
+    System.out.println("Plane model: " + Plane.modelName);
+    System.out.println("==================================");
 
-        int i1 = 10;
-        int i2 = 20;
+    String[] namePassengers = new String[6];
+    namePassengers[0] = "Alain Delon's Twin";
+    namePassengers[1] = "Tom Cruise";
+    namePassengers[2] = "Nicole Kidman";
+    namePassengers[3] = "Brad Pitt";
+    namePassengers[4] = null;
+    namePassengers[5] = "Elvis Presley's Twin";
 
-        String s1 = "a";
-        String s2 = "a";
+    Plane airbus = new Plane(namePassengers);
 
-        if (i1 != i2) {
+    boolean famousPerson = false;
 
-        }
-
-        if (s1.equals(s2)) {
-
-        }
-
-        if (s1 == s2){
-
-        }
-
-
-        int passengerCount = 3;
-        myCar.setPassengers(passengerCount);
-        System.out.println(myCar.getPassengers());
-        myCar.setPassengers(2);
-        System.out.println(myCar.getPassengers());
-        System.out.println(passengerCount);
-
-//        multipleIfElse("a", "a", "a");
-//        multipleIfElse("b", "a", "a");
-//        multipleIfElse("a", "b", "a");
-//        multipleIfElse("a", "a", "b");
-//        multipleIfElse("b", "b", "a");
-//        multipleIfElse("a", "b", "b");
-//        multipleIfElse("b", "a", "b");
-//        multipleIfElse("b", "a", "c");
+    for (int i = 0; i < airbus.getPassengers().length; i++) {
+      String passengerName = airbus.getPassengers()[i];
+      if (passengerName != null && (passengerName.equals("Alain Delon")
+          || passengerName.equals("Elvis Presley"))) {
+        switchStatement(passengerName);
+        famousPerson = true;
+      }
     }
 
-    public static void anotherIf(boolean aFlag) {
-        if (!aFlag) {
-            System.out.println("they are the same!");
-        } else {
-            System.out.println("they are different!");
-        }
+    if (!famousPerson) {
+      switchStatement("Fail");
     }
+  }
 
-    public static void paintCar(Car myCar, String newCarColor) {
-        if (myCar.getCarColor().equals(newCarColor)) {
-            System.out.println("they are the same! No paintNeeded!");
-        } else {
-            System.out.println("Painting car in " + newCarColor);
-            myCar.paintCar(newCarColor);
-        }
+  public static void switchStatement(String switchString) {
+    switch (switchString) {
+      case "Alain Delon":
+        System.out.println("Wow, Alain Delon is flying on our plane!");
+        break;
+      case "Elvis Presley":
+        System.out.println("Wow, Elvis Presley is flying on our plane too!");
+        break;
+      default:
+        System.out.println("There is no Alain Delon or Elvis Presley on our plane!");
     }
-
-    public static void multipleIfElse(String s1, String s2, String s3) {
-        if (s1.equals(s2) && s1.equals(s3)) {
-            System.out.println("all string are the same!");
-        } else if (s2.equals(s3)) {
-            System.out.println("s2 is same as s3");
-        } else if (s1.equals(s2)) {
-            System.out.println("s1 is same as s2");
-        } else if (s1.equals(s3)) {
-            System.out.println("s1 is same as s3");
-        } else {
-            System.out.println("all string are different");
-        }
-    }
+  }
 }

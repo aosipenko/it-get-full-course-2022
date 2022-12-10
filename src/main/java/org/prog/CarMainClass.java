@@ -2,37 +2,41 @@ package org.prog;
 
 public class CarMainClass {
 
-  /*
-  000000000000000
-  000000000000000
-  000000000000000
-  000aliceCarred0
-  000bobsCarblue0
-  000000000000000
-   */
-
   public static void main(String... args) {
+    TrafficLights trafficLights = new TrafficLights();
 
-    System.out.println("Alice and Bob will buy : " + Car.modelName);
+    Car myCar = new Car("purple", "AA0001AA");
+    Car bobsCar = new Car("green", "AA0002AA");
+    Car alicesCar = new Car("black", "AA0003AA");
+    Car policeCar = new Car("White", "AA0004AA");
 
-    Car aliceCar = new Car("magenta");
-    Car bobsCar = new Car("yellow");
+    Car[] crossingCars = {myCar, bobsCar, alicesCar, policeCar};
 
-    System.out.println("Cars before paint are:");
-    System.out.println("Alice car color: " + aliceCar.getCarColor());
-    System.out.println("Bobs car color: " + bobsCar.getCarColor());
+    trafficLights.sendSignal(myCar, "red");
+    trafficLights.sendSignal(bobsCar, "red");
+    trafficLights.sendSignal(alicesCar, "red");
+    trafficLights.sendSignal(policeCar, "red");
 
-    System.out.println("====================================");
+    moveCars(crossingCars);
 
-    aliceCar.paintCar("red");
-    bobsCar.paintCar("blue");
+    trafficLights.sendSignal(myCar, "green");
+    trafficLights.sendSignal(bobsCar, "yellow");
+    trafficLights.sendSignal(alicesCar, "red");
+    trafficLights.sendSignal(policeCar, "red");
 
-    aliceCar.modelName = "new Model";
+    moveCars(crossingCars);
 
-    System.out.println("Bob now owns : " + bobsCar.modelName);
+    trafficLights.sendSignal(myCar, "green");
+    trafficLights.sendSignal(bobsCar, "green");
+    trafficLights.sendSignal(alicesCar, "green");
+    trafficLights.sendSignal(policeCar, "green");
 
-    System.out.println("Cars after paint are:");
-    System.out.println("Alice car color: " + aliceCar.getCarColor());
-    System.out.println("Bobs car color: " + bobsCar.getCarColor());
+    moveCars(crossingCars);
+  }
+
+  public static void moveCars(Car[] cars) {
+    for (int i = 0; i < cars.length; i++) {
+      cars[i].crossTheCrossRoad(cars);
+    }
   }
 }
