@@ -18,7 +18,7 @@ public class Main {
 
     createPassengers(airport);
 
-    for (int i = 0; i < airport.passengerNames.length; i++) {
+    for (int i = 0; i < airport.getPassengerNames().length; i++) {
       airport.boardPassenger(i);
     }
   }

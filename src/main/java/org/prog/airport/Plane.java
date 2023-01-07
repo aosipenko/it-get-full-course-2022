@@ -2,17 +2,29 @@ package org.prog.airport;
 
 public class Plane {
 
-  public String flightId;
-  public String flightDestination;
-  public String[] passengers;
+  private String flightId;
+  private String flightDestination;
+  private String[] passengers;
 
-  public Plane(String flightNumbers, int sitAmount) {
-    flightId = flightNumbers;
+  public Plane(String flightId, int sitAmount) {
+    this.flightId = flightId;
     passengers = new String[sitAmount];
   }
 
-  public void setFlightDestination(String destination) {
-    flightDestination = destination;
+  public String getFlightId() {
+    if (this.flightId == null) {
+      return "default";
+    } else {
+      return this.flightId;
+    }
+  }
+
+  public String getFlightDestination() {
+    return this.flightDestination;
+  }
+
+  public void setFlightDestination(String flightDestination) {
+    this.flightDestination = flightDestination;
   }
 
   public void boardPassenger(String name, int sitNumber) {
@@ -24,7 +36,7 @@ public class Plane {
     }
   }
 
-  public void offerFreeSit(String name) {
+  private void offerFreeSit(String name) {
     System.out.println("Failed to find sit for " + name);
     int freeSit = getFreeSit();
 
@@ -36,7 +48,7 @@ public class Plane {
     }
   }
 
-  public int getFreeSit() {
+  private int getFreeSit() {
     int freeSit = -1;
 
     for (int i = 0; i < passengers.length; i++) {
