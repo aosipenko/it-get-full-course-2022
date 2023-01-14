@@ -1,27 +1,28 @@
 package org.prog.other;
 
 import org.prog.oop.ChildOne;
-import org.prog.oop.ChildTwo;
 import org.prog.oop.ParentClass;
 
 public class OopMain {
-  public static void main(String... args) {
-    ParentClass parentClass = new ParentClass("parentString");
-    parentClass.printBString();
+    public static void main(String... args) {
+        ParentClass parentClass = new ParentClass("parentString");
+        parentClass.printBString();
 
-    ChildOne childOne = new ChildOne("childOneString");
-    childOne.printBString();
+        ChildOne childOne = new ChildOne("childOneString");
+        childOne.printBString();
 
-    ChildTwo childTwo = new ChildTwo("childTwoString");
-    childTwo.printBString();
+        smth(parentClass);
+        smth(childOne);
 
-    ChildTwo childTwoTwin = new ChildTwo("childTwoTwinString");
-    childTwoTwin.printBString();
+        smth2(parentClass);
+        smth2(childOne);
+    }
 
-    GrandChild grandChild = new GrandChild();
-    grandChild.printBString();
+    public static void smth(ParentClass parent) {
 
-    GrandChild grandChildTwo = new GrandChild();
-    grandChildTwo.printBString();
-  }
+    }
+
+    public static void smth2(Object o) {
+
+    }
 }

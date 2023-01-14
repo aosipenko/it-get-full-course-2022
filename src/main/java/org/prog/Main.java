@@ -3,6 +3,8 @@ package org.prog;
 import org.prog.airport.FlightControl;
 import org.prog.airport.Plane;
 
+import java.util.ArrayList;
+
 public class Main {
 
   public static void main(String[] args) {
@@ -11,17 +13,17 @@ public class Main {
     airportPlanes[1] = new Plane("FLGHT2", 3);
     airportPlanes[2] = new Plane("FLGHT3", 3);
 
-    FlightControl airport = new FlightControl(airportPlanes);
-    airport.setPlaneDestination("FLGHT1", "Atlanta");
-    airport.setPlaneDestination("FLGHT2", "NY");
-    airport.setPlaneDestination("FLGHT3", "Atlanta");
+        FlightControl airport = new FlightControl(airportPlanes);
+        airport.setPlaneDestination("FLGHT1", "Atlanta");
+        airport.setPlaneDestination("FLGHT2", "NY");
+        airport.setPlaneDestination("FLGHT3", "Atlanta");
 
-    createPassengers(airport);
+        createPassengers(airport);
 
-    for (int i = 0; i < airport.getPassengerNames().length; i++) {
-      airport.boardPassenger(i);
+        for (int i = 0; i < airport.getPassengerNames().length; i++) {
+            airport.boardPassenger(i);
+        }
     }
-  }
 
   public static void createPassengers(FlightControl airport) {
     airport.registerPassenger(0, "Alice", 0, "FLGHT1");
