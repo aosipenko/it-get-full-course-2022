@@ -3,47 +3,68 @@ package org.prog.exceptions;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class ExceptionDemo {
 
-    public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("");
-        FileReader reader = new FileReader(file);
-        smth1();
-    }
+  /**
+   *
+   *
+   * FileNotFoundException > IOException > Exception > Throwable
+   * FileNotFoundException > AnotherExce > Exception > Throwable
+   *
+   *
+   *
+   * @param args
+   * @throws FileNotFoundException
+   */
 
-    public static void smth1() {
-        try {
-            smth2();
-        } catch (Exception e) {
-            System.out.println("nothing happened");
-        }
-    }
+  public static void main(String[] args) throws FileNotFoundException {
+    try {
 
-    public static void smth2() throws Exception {
-        smth3();
-    }
+    } catch (Throwable rte) {
 
-    public static void smth3() throws Exception {
-        smth4();
-        throw new Exception();
-    }
+    } finally {
 
-    public static void smth4() {
-        smth5();
     }
+    File file = new File("");
+    FileReader reader = new FileReader(file);
+    smth1();
+  }
 
-    public static void smth5() {
-        throw new RuntimeException();
+  public static void smth1() {
+    try {
+      smth2();
+    } catch (Exception e) {
+      System.out.println("nothing happened");
     }
+  }
 
-    public static int smth() {
-        try {
-            return 1;
-        } finally {
-            System.out.println("this is after it ends");
-        }
+  public static void smth2() throws Exception {
+    smth3();
+  }
+
+  public static void smth3() throws Exception {
+    smth4();
+    throw new Exception();
+  }
+
+  public static void smth4() {
+    smth5();
+    throw new RuntimeException("");
+  }
+
+  public static void smth5() {
+    throw new RuntimeException();
+  }
+
+  public static int smth() {
+    try {
+      return 1;
+    } finally {
+      System.out.println("this is after it ends");
     }
+  }
 
 }
 

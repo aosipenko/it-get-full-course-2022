@@ -1,52 +1,47 @@
 package org.prog.airport;
 
+import java.util.ArrayList;
+import org.prog.exceptions.PlaneNotFoundException;
+
 public class FlightControl {
 
-  final static int MAX_AIRPORT_CLIENTS = 8;
+  private final ArrayList<Plane> planes;
 
-  private Plane[] planes;
-  private String[] passengerNames = new String[MAX_AIRPORT_CLIENTS];//Alice; 0
-  private int[] passengerSits = new int[MAX_AIRPORT_CLIENTS];
-  private String[] passengerFlights = new String[MAX_AIRPORT_CLIENTS];
-  private String[] destinations;
+  private final ArrayList<Passenger> passengers;
 
-  public FlightControl(Plane[] airportPlanes) {
-    planes = airportPlanes;
-    destinations = new String[] {"Atlanta", "Maldives"};
+  public FlightControl(ArrayList<Plane> planes) {
+    this.planes = planes;
+    passengers = new ArrayList<>();
   }
 
-  public String[] getPassengerNames() {
-    return passengerNames;
+  public ArrayList<Passenger> getPassengers() {
+    return this.passengers;
   }
 
   public void setPlaneDestination(String flightId, String destination) {
-    Plane plane = getPlaneByFlightId(flightId);
-    plane.setFlightDestination(destination);
+    try {
+      Plane plane = getPlaneByFlightId(flightId);
+      plane.setFlightDestination(destination);
+    } catch (PlaneNotFoundException planeNotFoundException) {
+      System.err.println("No plane exists for flight " + flightId);
+    }
   }
 
-  public void boardPassenger(int passengerId) {
-    String passengerName = passengerNames[passengerId];
-    int passengerSit = passengerSits[passengerId];
-    String flightId = passengerFlights[passengerId];
-
-    Plane plane = getPlaneByFlightId(flightId);
-    plane.boardPassenger(passengerName, passengerSit);
+  public void boardPassenger(Passenger passenger) throws PlaneNotFoundException {
+    Plane plane = getPlaneByFlightId(passenger.getFlightId());
+    plane.boardPassenger(passenger);
   }
 
-  private Plane getPlaneByFlightId(String flightId) {
-    for (int i = 0; i < planes.length; i++) {
-      if (planes[i].getFlightId().equals(flightId)) {
-        return planes[i];
+  private Plane getPlaneByFlightId(String flightId) throws PlaneNotFoundException {
+    for (Plane inspectedPlane : planes) {
+      if (inspectedPlane.getFlightId().equals(flightId)) {
+        return inspectedPlane;
       }
     }
-    return null;
+    throw new PlaneNotFoundException();
   }
 
-  public void registerPassenger(int passengerId, String passengerName,
-                                int passengerSit, String flightId) {
-    passengerNames[passengerId] = passengerName;
-    passengerSits[passengerId] = passengerSit;
-    passengerFlights[passengerId] = flightId;
+  public void registerPassenger(Passenger passenger) {
+    passengers.add(passenger);
   }
-
 }

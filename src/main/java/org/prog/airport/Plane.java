@@ -1,14 +1,16 @@
 package org.prog.airport;
 
+import java.util.HashMap;
+
 public class Plane {
 
-  private String flightId;
+  private final String flightId;
+  private final HashMap<String, Passenger> passengers;
   private String flightDestination;
-  private String[] passengers;
 
-  public Plane(String flightId, int sitAmount) {
+  public Plane(String flightId) {
     this.flightId = flightId;
-    passengers = new String[sitAmount];
+    passengers = new HashMap<>();
   }
 
   public String getFlightId() {
@@ -19,43 +21,19 @@ public class Plane {
     }
   }
 
-  public String getFlightDestination() {
-    return this.flightDestination;
-  }
-
   public void setFlightDestination(String flightDestination) {
     this.flightDestination = flightDestination;
   }
 
-  public void boardPassenger(String name, int sitNumber) {
-    if (sitNumber < passengers.length && passengers[sitNumber] == null) {
-      System.out.println("Boarding done for " + name + " on flight " + flightId + " to " + flightDestination);
-      passengers[sitNumber] = name;
+  public void boardPassenger(Passenger passenger) {
+    if (passengers.containsKey(passenger.getSitId())) {
+      String replacementSit = passenger.getSitId() + "R";
+      passenger.setSitId(replacementSit);
+      boardPassenger(passenger);
     } else {
-      offerFreeSit(name);
+      System.out.println(
+          "Boarding done for " + passenger.getName() + " on flight " + flightId + " to " + flightDestination);
+      passengers.put(passenger.getSitId(), passenger);
     }
-  }
-
-  private void offerFreeSit(String name) {
-    System.out.println("Failed to find sit for " + name);
-    int freeSit = getFreeSit();
-
-    if (freeSit >= 0 && freeSit < passengers.length) {
-      System.out.println("Backup sit found for " + name + " on flight " + flightId + " to " + flightDestination);
-      passengers[freeSit] = name;
-    } else {
-      System.out.println("Flight " + flightId + " had no sits for passenger " + name);
-    }
-  }
-
-  private int getFreeSit() {
-    int freeSit = -1;
-
-    for (int i = 0; i < passengers.length; i++) {
-      if (passengers[i] == null) {
-        freeSit = i;
-      }
-    }
-    return freeSit;
   }
 }
