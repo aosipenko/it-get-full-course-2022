@@ -24,7 +24,6 @@ public class SeleniumDemo {
       search.sendKeys(Keys.ENTER);
 
       System.out.println("cookies are done");
-
     } finally {
       if (chromeDriver != null) {
         chromeDriver.quit();

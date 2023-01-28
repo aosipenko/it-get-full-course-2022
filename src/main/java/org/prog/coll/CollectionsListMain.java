@@ -1,45 +1,39 @@
 package org.prog.coll;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CollectionsListMain {
 
-    public static void main(String... args) {
+  public static void main(String... args) {
+    ArrayList<String> aList = new ArrayList<>();
+    aList.add("asdasd");
+    aList.add("asda");
+    aList.add("asdasdasdasd");
+    aList.add("a");
+    aList.add("asdasdasdazxczxc");
+    aList.add("asdasljkh");
+    aList.add("");
 
-        ArrayList<String> aList = new ArrayList<>();
-        ArrayList<String> bList = new ArrayList<>();
-
-        aList.add("Alice");
-        aList.add("Bob");
-
-        bList.add("Alice");
-        bList.add("Joe");
-
-        System.out.println(aList.contains("Alice"));
-
-        System.out.println("======================================");
-        for (int i = 0; i < aList.size(); i++) {
-            System.out.println(aList.get(i));
-        }
-
-        System.out.println("======================================");
-        aList.addAll(bList);
-
-        for (int i = 0; i < aList.size(); i++) {
-            System.out.println(aList.get(i));
-        }
-
-        System.out.println("======================================");
-        aList.removeAll(aList);
-
-        for (int i = 0; i < aList.size(); i++) {
-            System.out.println(aList.get(i));
-        }
-
-        System.out.println("======================================");
-
-        for (int i = 0; i < bList.size(); i++) {
-            System.out.println(bList.get(i));
-        }
+    ArrayList<Integer> intList = new ArrayList<>();
+    for (String s : aList) {
+      if (s.length() < 6) {
+        intList.add(s.length());
+      }
     }
+
+    List<Integer> intList2 = aList.stream()
+        .filter(listElement -> listElement.length() < 6)
+        .map(listElement -> listElement.length())
+        .collect(Collectors.toList());
+  }
+
+  private static List<Integer> smth(List<String> input) {
+    return input.stream()
+        .filter(listElement -> listElement.length() < 6)
+        .map(String::length)
+        .collect(Collectors.toList());
+  }
 }

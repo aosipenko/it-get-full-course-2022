@@ -1,48 +1,46 @@
 package org.prog;
 
-import java.util.ArrayList;
-import org.prog.airport.FlightControl;
-import org.prog.airport.Passenger;
-import org.prog.airport.Plane;
-import org.prog.exceptions.PlaneNotFoundException;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.prog.pages.RozetkaPage;
+import org.prog.pages.elements.ProductCell;
 
 public class Main {
 
-  public static void main(String[] args) throws PlaneNotFoundException {
-    ArrayList<Plane> planesList = new ArrayList<>();
-    planesList.add(new Plane("FLGHT1"));
-    planesList.add(new Plane("FLGHT2"));
-    planesList.add(new Plane("FLGHT3"));
+  public static void main(String[] args) {
+    WebDriverManager.chromedriver().setup();
+    ChromeDriver chromeDriver = null;
+    try {
+      chromeDriver = new ChromeDriver();
+//      GooglePage googlePage = new GooglePage(chromeDriver);
+//      googlePage.loadPage();
+//      googlePage.acceptCookiesIfPresent();
+//      googlePage.setSearchValue("test");
+//      googlePage.search(true);
 
-    FlightControl airport = new FlightControl(planesList);
-    airport.setPlaneDestination("FLGHT1", "Atlanta");
-    airport.setPlaneDestination("FLGHT2", "NY");
-    airport.setPlaneDestination("FLGHT3", "Atlanta");
-    airport.setPlaneDestination("FLGHT4", "Atlanta");
+      RozetkaPage rozetkaPage = new RozetkaPage(chromeDriver);
+      rozetkaPage.loadPage();
 
-    createPassengers(airport);
+      chromeDriver.manage().window().fullscreen();
 
-    for (Passenger passenger : airport.getPassengers()) {
-      airport.boardPassenger(passenger);
-      System.out.println("Boarding done for " + passenger.getName());
-      System.out.println("Passenger flight " + passenger.getFlightId());
-      System.out.println("Sit number is  " + passenger.getSitId());
+      WebElement productCell = rozetkaPage.getProductByLineAndIndex(3, 2, 5);
+      chromeDriver.executeScript("arguments[0].scrollIntoView(true);", productCell);
+
+      ProductCell pc = new ProductCell(productCell);
+      String productPrice = pc.getProductPrice();
+      System.out.println(productPrice);
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      if (chromeDriver != null) {
+        chromeDriver.quit();
+      }
     }
   }
 
-  public static void createPassengers(FlightControl airport) {
-    airport.registerPassenger(new Passenger("Alice", "FLGHT1", "10A"));
-    airport.registerPassenger(new Passenger("Jude", "FLGHT1", "10A"));
-    airport.registerPassenger(new Passenger("Nikky", "FLGHT1", "10A"));
-    airport.registerPassenger(new Passenger("Sam", "FLGHT1", "10A"));
-    airport.registerPassenger(new Passenger("Bob", "FLGHT1", "20A"));
-    airport.registerPassenger(new Passenger("Joe", "FLGHT2", "11A"));
-    airport.registerPassenger(new Passenger("Jane", "FLGHT2", "11B"));
-    airport.registerPassenger(new Passenger("Alice", "FLGHT2", "11C"));
-    airport.registerPassenger(new Passenger("Sarah", "FLGHT3", "20A"));
-    airport.registerPassenger(new Passenger("Arnie", "FLGHT3", "20B"));
-    airport.registerPassenger(new Passenger("Kyle", "FLGHT3", "10A"));
-  }
+
 }
 
 
