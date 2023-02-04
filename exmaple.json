@@ -1,0 +1,184 @@
+{
+  "results": [
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Ethan",
+        "last": "Clark"
+      },
+      "nat": "CA"
+    },
+    {
+      "gender": "female",
+      "name": {
+        "title": "Ms",
+        "first": "Amelia",
+        "last": "Burns"
+      },
+      "nat": "AU"
+    },
+    {
+      "gender": "female",
+      "name": {
+        "title": "Ms",
+        "first": "Carla",
+        "last": "Franck"
+      },
+      "nat": "DE"
+    },
+    {
+      "gender": "female",
+      "name": {
+        "title": "Miss",
+        "first": "Zoe",
+        "last": "Denys"
+      },
+      "nat": "CA"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Leon",
+        "last": "Cruz"
+      },
+      "nat": "GB"
+    },
+    {
+      "gender": "female",
+      "name": {
+        "title": "Miss",
+        "first": "Luz",
+        "last": "Velasco"
+      },
+      "nat": "ES"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Xavier",
+        "last": "Vázquez"
+      },
+      "nat": "ES"
+    },
+    {
+      "gender": "female",
+      "name": {
+        "title": "Madame",
+        "first": "Martha",
+        "last": "Leroux"
+      },
+      "nat": "CH"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Eemil",
+        "last": "Jokinen"
+      },
+      "nat": "FI"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Eddie",
+        "last": "Scott"
+      },
+      "nat": "GB"
+    },
+    {
+      "gender": "female",
+      "name": {
+        "title": "Mrs",
+        "first": "Gorana",
+        "last": "Lučić"
+      },
+      "nat": "RS"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Dylan",
+        "last": "Jean-Baptiste"
+      },
+      "nat": "CA"
+    },
+    {
+      "gender": "female",
+      "name": {
+        "title": "Miss",
+        "first": "Laura",
+        "last": "Rojas"
+      },
+      "nat": "ES"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Gustav",
+        "last": "Madsen"
+      },
+      "nat": "DK"
+    },
+    {
+      "gender": "female",
+      "name": {
+        "title": "Mrs",
+        "first": "Grace",
+        "last": "Richards"
+      },
+      "nat": "US"
+    },
+    {
+      "gender": "female",
+      "name": {
+        "title": "Ms",
+        "first": "Celina",
+        "last": "Gilbert"
+      },
+      "nat": "AU"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Xavier",
+        "last": "Muñoz"
+      },
+      "nat": "ES"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Samir",
+        "last": "Köller"
+      },
+      "nat": "DE"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Juan",
+        "last": "Vidal"
+      },
+      "nat": "ES"
+    },
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Trym",
+        "last": "Vetrhus"
+      },
+      "nat": "NO"
+    }
+  ]
+}
