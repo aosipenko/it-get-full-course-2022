@@ -1,6 +1,7 @@
 package org.prog.pages;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -43,6 +44,11 @@ public class GooglePage {
 
   public void luckySearch() {
     clickElementIfVisible(By.name("btnI"));
+  }
+
+  public List<String> getSearchHeaders(){
+    return driver.findElements(By.tagName("h3")).stream()
+        .map(WebElement::getText).collect(Collectors.toList());
   }
 
   private void clickElementIfVisible(By locator) {

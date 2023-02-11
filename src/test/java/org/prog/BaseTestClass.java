@@ -1,27 +1,30 @@
 package org.prog;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import java.util.List;
+import java.util.Objects;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.prog.pages.RozetkaPage;
+import org.prog.dto.PersonDto;
+import org.prog.dto.RootDto;
+import org.prog.pages.GooglePage;
 
 public class BaseTestClass {
 
   private static WebDriver driver;
-  private static RozetkaPage rozetkaPage;
+  private static GooglePage googlePage;
 
   @BeforeAll
   public static void setup() {
     WebDriverManager.chromedriver().setup();
     driver = new ChromeDriver();
-    rozetkaPage = new RozetkaPage(driver);
+    googlePage = new GooglePage(driver);
   }
 
   @AfterAll
@@ -29,33 +32,28 @@ public class BaseTestClass {
     driver.quit();
   }
 
-  @BeforeEach
-  public void beforeTest() {
-    rozetkaPage.loadPage();
+  @Test
+  public void searchForPerson() {
+    Response response = RestAssured.get("https://randomuser.me/api/?inc=gender,name,nat&results=20");
+    RootDto rootDto = response.body().as(RootDto.class);
+
+    PersonDto person = rootDto.getResults().stream()
+        .filter(p -> p.getGender().equals("male"))
+        .findFirst().get();
+
+    String searchQuery = person.getName().getFirst() + " " + person.getName().getLast();
+
+    googlePage.loadPage();
     driver.manage().window().fullscreen();
-  }
-
-  @AfterEach
-  public void afterTest() {
-    System.out.println("============================================");
-  }
-
-  @Test
-  public void testPaginationWithPageNumber() throws InterruptedException {
-    rozetkaPage.goToPage("3");
-    Thread.sleep(5000);
-    WebElement productItem = rozetkaPage.getProductByLineAndIndex(1, 2, 5);
-    Assertions.assertNotNull(productItem.getText(), "Element text expected not to be empty!");
-    System.out.println(productItem.getText());
-  }
-
-  @Test
-  public void testPaginationWithArrows() throws InterruptedException {
-    rozetkaPage.switchToRight();
-    Thread.sleep(5000);
-    WebElement productItem = rozetkaPage.getProductByLineAndIndex(1, 2, 5);
-    Assertions.assertNotNull(productItem.getText(), "Element text expected not to be empty!");
-    System.out.println(productItem.getText());
-
+    googlePage.acceptCookiesIfPresent();
+    googlePage.setSearchValue(searchQuery);
+    googlePage.search(false);
+    List<String> searchResults = googlePage.getSearchHeaders();
+    Assertions.assertFalse(searchResults.isEmpty());
+    Assertions.assertTrue(
+        searchResults.stream()
+            .filter(Objects::nonNull)
+            .anyMatch(elementText -> elementText.contains(searchQuery))
+    );
   }
 }

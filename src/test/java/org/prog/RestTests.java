@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.prog.dto.PersonDto;
 import org.prog.dto.RootDto;
 
 public class RestTests {
@@ -14,13 +15,15 @@ public class RestTests {
   @Test
   public void myRestTest() throws JsonProcessingException {
     Response response = RestAssured.get("https://randomuser.me/api/?inc=gender,name,nat&results=20");
-//    response.prettyPrint();
-//    response.then()
-//        .assertThat()
-//        .body("results.gender", not(blankOrNullString()));
-//        .body("results.gender", hasItems("male", "female"));
-
     RootDto rootDto = response.body().as(RootDto.class);
+
+    PersonDto person = rootDto.getResults().stream()
+        .filter(p -> p.getGender().equals("male"))
+            .findFirst().get();
+
+    String searchQuery = person.getName().getFirst() + " " + person.getName().getLast();
+
+
     System.out.println(rootDto.getInfo().getSeed());
     System.out.println(rootDto.getResults().get(0).getName().getFirst());
     System.out.println(rootDto.getResults().get(0).getName().getLast());
