@@ -4,6 +4,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Step;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 public class AllureReportTests {
@@ -42,6 +43,9 @@ public class AllureReportTests {
 
   @Step("I print things")
   private void printThing(String s) {
+    if (s.contains("minor")) {
+      Assert.fail("oops!");
+    }
     System.out.println(s);
   }
 }
