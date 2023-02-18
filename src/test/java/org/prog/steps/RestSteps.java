@@ -3,7 +3,7 @@ package org.prog.steps;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Assert;
@@ -28,12 +28,14 @@ public class RestSteps {
   }
 
   @Given("I create set of {int} person(s) as {string}")
+  @Step("I create persons!")
   public void createSeveralPersons(int amount, String alias) {
     RootDto rootDto = createUsers(amount);
     DataHolder.getInstance().put(alias, rootDto);
   }
 
   @Then("User set {string} contains {int} person(s)")
+  @Step("I validate persons!")
   public void validateAmount(String alias, int amount) {
     RootDto dto = (RootDto) DataHolder.getInstance().get(alias);
     Assert.assertEquals("User data set length mismatch!", amount, dto.getResults().size());

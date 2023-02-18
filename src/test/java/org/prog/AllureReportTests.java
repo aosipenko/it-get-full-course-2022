@@ -43,9 +43,6 @@ public class AllureReportTests {
 
   @Step("I print things")
   private void printThing(String s) {
-    if (s.contains("minor")) {
-      Assert.fail("oops!");
-    }
     System.out.println(s);
   }
 }
