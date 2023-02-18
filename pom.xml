@@ -113,6 +113,7 @@
                 <configuration>
                     <includes>
                         <include>**/*CucumberTestRunner*.java</include>
+                        <include>**/*AllureReportTests*.java</include>
                     </includes>
                 </configuration>
             </plugin>
