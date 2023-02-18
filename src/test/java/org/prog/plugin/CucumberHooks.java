@@ -14,6 +14,6 @@ public class CucumberHooks implements EventListener {
 
   private void tearDown(TestRunFinished event) {
     System.out.println("All tests finished, shutting down...");
-    WebSteps.driver.quit();
+//    WebSteps.driver.quit();
   }
 }
