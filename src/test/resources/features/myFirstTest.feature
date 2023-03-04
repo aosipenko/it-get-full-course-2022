@@ -12,6 +12,8 @@ Feature: my test cucumber
 #      | female |
 
   Scenario: generate and search for person
+    Given I generate and save Person
+    Given I count persons using Spring Data
     Given I get user with "FirstName" = "Camila" from DB as "person_1"
     Given I load google page
     When I search for person with alias "person_1"

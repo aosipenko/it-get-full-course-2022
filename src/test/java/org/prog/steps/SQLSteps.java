@@ -3,17 +3,17 @@ package org.prog.steps;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import java.net.InetAddress;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
+import javax.transaction.Transactional;
 import lombok.SneakyThrows;
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.prog.db.Persons;
+import org.prog.db.PersonsJpa;
 import org.prog.dto.PersonDto;
 import org.prog.dto.UserNameDto;
 import org.prog.util.DataHolder;
@@ -30,6 +30,29 @@ public class SQLSteps {
   private final static String NEW_USER_SQL =
       "insert into Persons (LastName, FirstName, Title, Gender)" +
           " VALUES ('%s', '%s', '%s', '%s')";
+
+  @Autowired
+  private PersonsJpa personsJpa;
+
+  @Given("I count persons using Spring Data")
+  public void countPersonsWithSpring() {
+    System.out.println(personsJpa.findAll().size());
+  }
+
+  @Given("I generate and save Person")
+  @Transactional
+  public void generateAndSave() {
+    try {
+      Persons p = new Persons();
+      p.setFirstName("Alice");
+      p.setLastName("Cooper");
+      p.setGender("male");
+      p.setTitle("Mr");
+      personsJpa.save(p);
+    } catch (Exception e){
+      e.printStackTrace();
+    }
+  }
 
   @Given("I save users to DB")
   public void saveMultipleUsers(DataTable dataTable) {
