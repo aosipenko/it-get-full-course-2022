@@ -28,7 +28,7 @@ public class CucumberHooks implements EventListener {
         WebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), chromeOptions);
         WebSteps.driver = driver;
       } else {
-        WebSteps.driver = new RemoteWebDriver(new URL("http://selenoid:4444/wd/hub"), chromeOptions);
+        WebSteps.driver = new RemoteWebDriver(new URL("http://selenoid-docker:4444/wd/hub"), chromeOptions);
       }
     } catch (Exception e) {
       e.printStackTrace();
