@@ -9,9 +9,7 @@ networks:
       name: selenoid # This assumes network is already created
 services:
   selenoid:
-    hostname: "selenoid"
-    networks:
-      selenoid: null
+    hostname: "selenoid-docker"
     image: aerokube/selenoid:latest-release
     volumes:
       - "./:/etc/selenoid"
