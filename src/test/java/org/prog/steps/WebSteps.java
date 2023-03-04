@@ -16,15 +16,6 @@ public class WebSteps {
   public static WebDriver driver;
   private GooglePage googlePage;
 
-  @Given("I start my browser")
-  public void startBrowser() {
-    if (driver != null) {
-      System.out.println("Driver already running");
-    } else {
-      driver = new ChromeDriver();
-    }
-  }
-
   @Given("I load google page")
   public void iLoadGooglePage() {
     if (googlePage == null) {

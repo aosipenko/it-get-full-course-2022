@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.Optional;
 import org.junit.Assert;
 import org.prog.dto.PersonDto;
+import org.prog.dto.UserNameDto;
 import org.prog.util.DataHolder;
 
 public class SQLSteps {
@@ -40,8 +41,26 @@ public class SQLSteps {
     }
   }
 
+  @Given("I get user with {string} = {string} from DB as {string}")
+  public void retrieveUser(String parameter, String value, String alias) throws ClassNotFoundException, SQLException {
+    String query = String.format(FILTER_BY_PARAMETER, parameter, value);
+    Optional<ResultSet> sqlResults = executeQuery(query, true);
+    if (sqlResults.isPresent()) {
+      while (sqlResults.get().next()) {
+        PersonDto person = new PersonDto();
+        UserNameDto userNameDto = new UserNameDto();
+        userNameDto.setFirst(sqlResults.get().getString(1));
+        userNameDto.setLast(sqlResults.get().getString(2));
+        person.setName(userNameDto);
+        DataHolder.getInstance().put(alias, person);
+      }
+    } else {
+      Assert.fail("SQL Execution failed!");
+    }
+  }
+
   @Given("I print all users in DB with {string} = {string}")
-  public void setupConnection(String parameter, String value) throws ClassNotFoundException, SQLException {
+  public void printUsers(String parameter, String value) throws ClassNotFoundException, SQLException {
     String query = String.format(FILTER_BY_PARAMETER, parameter, value);
     Optional<ResultSet> sqlResults = executeQuery(query, true);
     if (sqlResults.isPresent()) {

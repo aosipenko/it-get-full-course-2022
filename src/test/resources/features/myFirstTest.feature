@@ -10,13 +10,12 @@ Feature: my test cucumber
 #      | gender |
 #      | male   |
 #      | female |
-#
-#  Scenario: generate and search for person
-#    Given I create a random person with gender "male" as "person_1"
-#    Given I start my browser
-#    Given I load google page
-#    When I search for person with alias "person_1"
-#    Then I see a person "person_1" in search results
+
+  Scenario: generate and search for person
+    Given I get user with "FirstName" = "Camila" from DB as "person_1"
+    Given I load google page
+    When I search for person with alias "person_1"
+    Then I see a person "person_1" in search results
 
 #  Scenario: string to enum
 #    Given I create multiple persons
