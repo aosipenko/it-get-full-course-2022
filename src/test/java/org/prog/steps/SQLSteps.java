@@ -17,8 +17,12 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.prog.dto.PersonDto;
 import org.prog.dto.UserNameDto;
 import org.prog.util.DataHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class SQLSteps {
+
+  @Autowired
+  private DataHolder dataHolder;
 
   private final static String FILTER_BY_PARAMETER =
       "select FirstName, LastName from Persons WHERE %s = '%s'";
@@ -35,7 +39,7 @@ public class SQLSteps {
   @Given("I save person {string} to DB")
   public void savePersonToDB(String alias) {
     try {
-      PersonDto personDto = (PersonDto) DataHolder.getInstance().get(alias);
+      PersonDto personDto = (PersonDto) dataHolder.get(alias);
       String query = String.format(NEW_USER_SQL, personDto.getName().getLast(), personDto.getName().getFirst(),
           personDto.getName().getTitle(), personDto.getGender());
       executeQuery(query, false);
@@ -57,7 +61,7 @@ public class SQLSteps {
         userNameDto.setFirst(sqlResults.get().getString(1));
         userNameDto.setLast(sqlResults.get().getString(2));
         person.setName(userNameDto);
-        DataHolder.getInstance().put(alias, person);
+        dataHolder.put(alias, person);
       }
     } else {
       Assert.fail("SQL Execution failed!");

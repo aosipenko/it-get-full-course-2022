@@ -14,23 +14,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.prog.dto.PersonDto;
 import org.prog.dto.RootDto;
 import org.prog.pages.GooglePage;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class BaseTestClass {
 
-  private static WebDriver driver;
+  @Autowired
   private static GooglePage googlePage;
-
-  @BeforeAll
-  public static void setup() {
-    WebDriverManager.chromedriver().setup();
-    driver = new ChromeDriver();
-    googlePage = new GooglePage(driver);
-  }
-
-  @AfterAll
-  public static void tearDown() {
-    driver.quit();
-  }
 
   @Test
   public void searchForPerson() {
@@ -44,7 +33,6 @@ public class BaseTestClass {
     String searchQuery = person.getName().getFirst() + " " + person.getName().getLast();
 
     googlePage.loadPage();
-    driver.manage().window().fullscreen();
     googlePage.acceptCookiesIfPresent();
     googlePage.setSearchValue(searchQuery);
     googlePage.search(false);

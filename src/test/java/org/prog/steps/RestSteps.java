@@ -10,8 +10,12 @@ import org.junit.Assert;
 import org.prog.dto.PersonDto;
 import org.prog.dto.RootDto;
 import org.prog.util.DataHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class RestSteps {
+
+  @Autowired
+  private DataHolder dataHolder;
 
   private final static String REQUEST = "https://randomuser.me/api/?inc=gender,name,nat&results=%s";
 
@@ -24,20 +28,20 @@ public class RestSteps {
     String searchQuery = person.getName().getFirst() + " " + person.getName().getLast();
     System.out.println("Will be searching for " + searchQuery);
 
-    DataHolder.getInstance().put(alias, person);
+    dataHolder.put(alias, person);
   }
 
   @Given("I create set of {int} person(s) as {string}")
   @Step("I create persons!")
   public void createSeveralPersons(int amount, String alias) {
     RootDto rootDto = createUsers(amount);
-    DataHolder.getInstance().put(alias, rootDto);
+    dataHolder.put(alias, rootDto);
   }
 
   @Then("User set {string} contains {int} person(s)")
   @Step("I validate persons!")
   public void validateAmount(String alias, int amount) {
-    RootDto dto = (RootDto) DataHolder.getInstance().get(alias);
+    RootDto dto = (RootDto) dataHolder.get(alias);
     Assert.assertEquals("User data set length mismatch!", amount, dto.getResults().size());
   }
 
