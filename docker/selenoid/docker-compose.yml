@@ -2,6 +2,12 @@
 #  docker network create selenoid
 #  docker pull selenoid/chrome:latest
 #  docker pull selenoid/video-recorder:latest-release
+# CONNECT CONTAINERS:
+# docker network connect selenoid <container_name>
+# INSPECT NETWORK:
+# docker network inspect selenoid
+# DELETE DOCKER IMAGES:
+# docker rmi <container_name>
 version: '3'
 networks:
   selenoid:
