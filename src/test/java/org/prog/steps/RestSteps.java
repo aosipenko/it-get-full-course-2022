@@ -6,10 +6,11 @@ import io.cucumber.java.en.Then;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.Assert;
+import io.restassured.response.ResponseBody;
 import org.prog.dto.PersonDto;
 import org.prog.dto.RootDto;
 import org.prog.util.DataHolder;
+import org.testng.Assert;
 
 public class RestSteps {
 
@@ -38,7 +39,7 @@ public class RestSteps {
   @Step("I validate persons!")
   public void validateAmount(String alias, int amount) {
     RootDto dto = (RootDto) DataHolder.getInstance().get(alias);
-    Assert.assertEquals("User data set length mismatch!", amount, dto.getResults().size());
+    Assert.assertEquals(amount, dto.getResults().size(), "User data set length mismatch!");
   }
 
   @Given("I create multiple persons")

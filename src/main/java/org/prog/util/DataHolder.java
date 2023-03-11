@@ -1,7 +1,6 @@
 package org.prog.util;
 
 import java.util.HashMap;
-import org.junit.Assert;
 
 public class DataHolder {
 
@@ -23,7 +22,7 @@ public class DataHolder {
 
   public Object get(String key) {
     if (!holder.containsKey(key)) {
-      Assert.fail("Key not found " + key);
+      throw new RuntimeException("Key not found Exception");
     }
     return holder.get(key);
   }

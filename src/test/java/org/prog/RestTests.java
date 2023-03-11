@@ -6,9 +6,9 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.Test;
 import org.prog.dto.PersonDto;
 import org.prog.dto.RootDto;
+import org.testng.annotations.Test;
 
 public class RestTests {
 
@@ -19,7 +19,7 @@ public class RestTests {
 
     PersonDto person = rootDto.getResults().stream()
         .filter(p -> p.getGender().equals("male"))
-            .findFirst().get();
+        .findFirst().get();
 
     String searchQuery = person.getName().getFirst() + " " + person.getName().getLast();
 

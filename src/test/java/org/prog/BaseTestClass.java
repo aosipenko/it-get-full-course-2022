@@ -5,29 +5,29 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import java.util.List;
 import java.util.Objects;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.prog.dto.PersonDto;
 import org.prog.dto.RootDto;
 import org.prog.pages.GooglePage;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class BaseTestClass {
 
   private static WebDriver driver;
   private static GooglePage googlePage;
 
-  @BeforeAll
+  @BeforeClass
   public static void setup() {
     WebDriverManager.chromedriver().setup();
     driver = new ChromeDriver();
     googlePage = new GooglePage(driver);
   }
 
-  @AfterAll
+  @AfterClass
   public static void tearDown() {
     driver.quit();
   }
@@ -49,8 +49,8 @@ public class BaseTestClass {
     googlePage.setSearchValue(searchQuery);
     googlePage.search(false);
     List<String> searchResults = googlePage.getSearchHeaders();
-    Assertions.assertFalse(searchResults.isEmpty());
-    Assertions.assertTrue(
+    Assert.assertFalse(searchResults.isEmpty());
+    Assert.assertTrue(
         searchResults.stream()
             .filter(Objects::nonNull)
             .anyMatch(elementText -> elementText.contains(searchQuery))

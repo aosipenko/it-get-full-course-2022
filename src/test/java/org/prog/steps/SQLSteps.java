@@ -3,7 +3,6 @@ package org.prog.steps;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import java.net.InetAddress;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,12 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
 import lombok.SneakyThrows;
-import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.prog.dto.PersonDto;
 import org.prog.dto.UserNameDto;
 import org.prog.util.DataHolder;
+import org.testng.Assert;
 
 public class SQLSteps {
 

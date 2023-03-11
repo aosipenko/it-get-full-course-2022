@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Test Suite">
+    <parameter name="platform" value="${platform}"/>
+
+    <test name="CucumberOnlyTests">
+        <classes>
+            <class name="org.prog.CucumberTestRunner"/>
+        </classes>
+    </test>
+<!--    <test name="NoCucumberTests">-->
+<!--        <classes>-->
+<!--            <class name="org.prog.TestsWithParameters"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+</suite>

@@ -1,35 +1,27 @@
 package org.prog;
 
-import java.util.stream.Stream;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.prog.web.SeleniumDemo;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 public class TestsWithParameters {
 
 
-  @Test
-  public void smth(){
-    SeleniumDemo seleniumDemo = new SeleniumDemo();
 
-  }
-
-
-  @ParameterizedTest
-  @MethodSource("provideStringsForIsBlank")
+  @Test( dataProvider = "myDataProvider")
   public void someTest(String args) {
     System.out.println("Running " + args);
-    Assertions.assertEquals("test", args, "String comparison failed");
+    Assert.assertEquals(args, "test", "String comparison failed");
   }
 
-  private static Stream<Arguments> provideStringsForIsBlank() {
-    return Stream.of(
-        Arguments.of("test"),
-        Arguments.of("test"),
-        Arguments.of("this test will fail")
-    );
+
+  @DataProvider(name = "myDataProvider")
+  private static Object[][] provideStringsForIsBlank() {
+    return new Object[][]{
+        {"test"},
+        {"test"},
+        {"test"},
+        {"test!!!"}
+    };
   }
 }

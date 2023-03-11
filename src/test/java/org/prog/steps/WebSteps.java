@@ -4,25 +4,27 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.util.Objects;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.prog.dto.PersonDto;
 import org.prog.pages.GooglePage;
 import org.prog.pages.selectors.PageSelectors;
 import org.prog.util.DataHolder;
+import org.prog.web.WebDriverFactory;
+import org.prog.web.WebDriverName;
+import org.testng.Assert;
 
 public class WebSteps {
-  public static WebDriver driver;
+  public ThreadLocal<WebDriver> driverContainer =
+      ThreadLocal.withInitial(() -> WebDriverFactory.getDriver(WebDriverName.CHROME));
   private GooglePage googlePage;
 
   @Given("I load google page")
   public void iLoadGooglePage() {
     if (googlePage == null) {
-      googlePage = new GooglePage(driver);
+      googlePage = new GooglePage(driverContainer.get());
     }
     googlePage.loadPage();
-    driver.manage().window().fullscreen();
+    driverContainer.get().manage().window().fullscreen();
     googlePage.acceptCookiesIfPresent();
   }
 
@@ -43,13 +45,13 @@ public class WebSteps {
   public void iSeeInSearchResults(String alias) {
     PersonDto person = (PersonDto) DataHolder.getInstance().get(alias);
     String searchValue = person.getName().getFirst() + " " + person.getName().getLast();
-    Assertions.assertTrue(googlePage.getSearchHeaders().stream()
+    Assert.assertTrue(googlePage.getSearchHeaders().stream()
         .filter(Objects::nonNull)
         .anyMatch(header -> header.contains(searchValue)));
   }
 
   @Given("I click {}")
   public void clickAnyElement(PageSelectors e) {
-    driver.findElement(e.getLocator()).click();
+    driverContainer.get().findElement(e.getLocator()).click();
   }
 }
