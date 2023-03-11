@@ -9,19 +9,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class RozetkaPage {
+public class RozetkaPage extends AbstractPage {
 
-  private final WebDriver driver;
+  private final static String URL = "https://rozetka.com.ua/network-equipment/c80111/";
   private final static By ELEMENT_CELL = By.className("catalog-grid__cell");
 
 //  private final static By APP_PAGINATION = By.tagName("app-paginator");
 
   public RozetkaPage(WebDriver driver) {
-    this.driver = driver;
-  }
-
-  public void loadPage() {
-    driver.get("https://rozetka.com.ua/network-equipment/c80111/");
+    super(driver, URL);
   }
 
   public void switchToLeft() {
@@ -47,7 +43,7 @@ public class RozetkaPage {
     return cells.get(elementIndex);
   }
 
-  private void scrollToAndClick(WebElement webElement){
+  private void scrollToAndClick(WebElement webElement) {
     JavascriptExecutor js = (JavascriptExecutor) driver;
     js.executeScript("arguments[0].scrollIntoView(true);", webElement);
     webElement.click();

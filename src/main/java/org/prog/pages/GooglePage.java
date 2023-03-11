@@ -7,18 +7,13 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class GooglePage {
+public class GooglePage extends AbstractPage {
 
-  private final WebDriver driver;
   private static final String URL = "https://google.com/";
   private static final By SEARCH_FIELD = By.name("q");
 
   public GooglePage(WebDriver driver) {
-    this.driver = driver;
-  }
-
-  public void loadPage() {
-    driver.get(URL);
+    super(driver, URL);
   }
 
   public void acceptCookiesIfPresent() {

@@ -1,7 +1,7 @@
 Feature: my test cucumber
 
   Scenario: generate and search for person
-    Given I get user with "FirstName" = "Camila" from DB as "person_1"
+    Given I get user with "FirstName" = "Eilif" from DB as "person_1"
     Given I load google page
     When I search for person with alias "person_1"
     Then I see a person "person_1" in search results
